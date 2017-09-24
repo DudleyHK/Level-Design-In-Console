@@ -1,0 +1,28 @@
+/*
+  Here is an example of how a rule set is structured.
+  Currently there is little information about different obsticles,
+  but this will most likely change later in development. 
+*/
+
+
+{
+  "Jump Pit": 
+  {
+    "Basic": 
+    {
+      "Format": "XXJX"
+    },
+    "Intermediate": {
+      "Format": "XJJX"
+    },
+    "Difficult": {
+      "Format": "XXJJJX"
+    }
+  },
+
+  "Jump Vault": {
+    "Basic": {
+      "Format": "XVX"
+    }
+  }
+}
