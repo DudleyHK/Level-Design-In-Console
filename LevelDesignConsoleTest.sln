@@ -5,13 +5,10 @@ VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LevelDesignConsoleTest", "LevelDesignConsoleTest\LevelDesignConsoleTest.vcxproj", "{C256E97B-AB54-4A8F-B7F7-0B2A5B6EDC64}"
 	ProjectSection(ProjectDependencies) = postProject
-		{CB371CAD-2215-4C46-95F1-A0DFBC2003DA} = {CB371CAD-2215-4C46-95F1-A0DFBC2003DA}
 		{51593DDD-2F84-4B20-9ECF-0819CA23B433} = {51593DDD-2F84-4B20-9ECF-0819CA23B433}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LevelDesignerPlugin", "LevelDesignerPlugin\LevelDesignerPlugin.vcxproj", "{51593DDD-2F84-4B20-9ECF-0819CA23B433}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SentenceGenerator", "SentenceGenerator\SentenceGenerator.vcxproj", "{CB371CAD-2215-4C46-95F1-A0DFBC2003DA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,14 +34,6 @@ Global
 		{51593DDD-2F84-4B20-9ECF-0819CA23B433}.Release|x64.Build.0 = Release|x64
 		{51593DDD-2F84-4B20-9ECF-0819CA23B433}.Release|x86.ActiveCfg = Release|Win32
 		{51593DDD-2F84-4B20-9ECF-0819CA23B433}.Release|x86.Build.0 = Release|Win32
-		{CB371CAD-2215-4C46-95F1-A0DFBC2003DA}.Debug|x64.ActiveCfg = Debug|x64
-		{CB371CAD-2215-4C46-95F1-A0DFBC2003DA}.Debug|x64.Build.0 = Debug|x64
-		{CB371CAD-2215-4C46-95F1-A0DFBC2003DA}.Debug|x86.ActiveCfg = Debug|Win32
-		{CB371CAD-2215-4C46-95F1-A0DFBC2003DA}.Debug|x86.Build.0 = Debug|Win32
-		{CB371CAD-2215-4C46-95F1-A0DFBC2003DA}.Release|x64.ActiveCfg = Release|x64
-		{CB371CAD-2215-4C46-95F1-A0DFBC2003DA}.Release|x64.Build.0 = Release|x64
-		{CB371CAD-2215-4C46-95F1-A0DFBC2003DA}.Release|x86.ActiveCfg = Release|Win32
-		{CB371CAD-2215-4C46-95F1-A0DFBC2003DA}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
