@@ -7,7 +7,10 @@
 
 #include <string>
 #include <random>
+#include <memory>
 #include <vector>
+
+#include "Dictonary.h"
 
 
 
@@ -18,6 +21,7 @@ public:
 	~Generator() = default;
 
 	const std::string generate();
+	const std::string grammar(std::string sentence);
 
 	template<class Ty = int>
 	const unsigned short getRandVal(Ty min, Ty max)
@@ -32,21 +36,7 @@ public:
 
 
 private:
-
-	void init();
-
-	std::vector<std::string> nouns        = { "" };
-	std::vector<std::string> verbs        = { "" };
-	std::vector<std::string> adjectives   = { "" };
-	std::vector<std::string> adverbs	  = { "" };
-	std::vector<std::string> pronouns	  = { "" };
-	std::vector<std::string> prepositions = { "" };
-	std::vector<std::string> conjunctions = { "" };
-	std::vector<std::string> determiners  = { "" };
-
-	const std::string SPACE = " ";
-
-
+	std::unique_ptr<Dictionary> dictionary = nullptr;
 };
 
 

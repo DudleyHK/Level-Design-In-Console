@@ -111,9 +111,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Dictonary.h" />
     <ClInclude Include="Generator.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Dictonary.cpp" />
     <ClCompile Include="Generator.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

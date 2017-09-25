@@ -4,130 +4,53 @@
 
 */
 #include "Generator.h"
+// ----------------------------------
 
-Generator::Generator() 
+
+
+
+
+Generator::Generator() :
+	dictionary(std::make_unique<Dictionary>())
 {
-	nouns.reserve(10);
-	verbs.reserve(10);
-	adjectives.reserve(10);
-	adverbs.reserve(10);
-	pronouns.reserve(10);
-	prepositions.reserve(10);
-	conjunctions.reserve(10);
-	determiners.reserve(10);
 
-	init();
 }
 
-void Generator::init()
-{
-	/* NOUNS */
-	nouns =
-	{
-		"boy",
-		"country",
-		"city",
-		"birth",
-		"danger",
-		"time",
-		"Africa",
-		"coffee",
-		"rain",
-		"audience"
-	};
 
-	/* VERBS */
-	verbs = 
-	{
-		"jump", 
-		"stop",
-		"explore", 
-		"be", 
-		"snow",
-		"evolve",
-		"shrink",
-		"stop",
-		"happen",
-		"have"
-	};
-
-	/* ADJECTIVES */
-	adjectives =
-	{
-		"excited",
-		"green",
-		"tidy",
-		"lush",
-		"newest",
-		"special",
-		"tasty",
-		"hot",
-		"cold",
-		"nasty"
-
-	};
-
-	adverbs =
-	{
-		"fast",
-		"loudly",
-		"patiently",
-		"fast",
-		"loudly",
-		"patiently",
-		"now",
-		"recently"
-
-	};
-	pronouns =
-	{
-		"I",
-		"he",
-		"she",
-		"little",
-		"both"
-	};
-	prepositions =
-	{
-		"from",
-		"for",
-		"after",
-		"in",
-		"to",
-		"on"
-	};
-
-	conjunctions =
-	{
-		"but",
-		"for",
-		"if",
-		"or",
-		"and",
-		"when"
-	};
-
-	determiners =
-	{
-		"a",
-		"the",
-		"every",
-		"this",
-		"those"
-	};
-
-
-}
 
 const std::string Generator::generate()
 {
-	std::string new_str = "";
+	std::string sentence = "";
 
-	new_str += pronouns[getRandVal(0, 4)]    + SPACE;
-	new_str += verbs[getRandVal(0, 9)]       + SPACE;
-	new_str += determiners[getRandVal(0, 4)] + SPACE;
-	new_str += nouns[getRandVal(0, 9)];
-	return new_str;
+	auto rand_verb       = getRandVal(0, 9);
+	auto rand_noun       = getRandVal(0, 9);
+	auto rand_pronoun    = getRandVal(0, 4);
+	auto rand_determiner = getRandVal(0, 3);
+	
+	sentence += dictionary->getPronouns   (rand_pronoun)    + dictionary->getSpace();
+	sentence += dictionary->getVerbs      (rand_verb)       + dictionary->getSpace();
+	sentence += dictionary->getDeterminers(rand_determiner) + dictionary->getSpace();
+	sentence += dictionary->getNouns      (rand_noun);
+
+	return grammar(sentence);
+}
+
+
+
+/* Currently:
+	- Make first letter uppercase
+	- Add fullstop
+*/
+const std::string Generator::grammar(std::string sentence)
+{
+	// make a copy just incase something happens to the sentence.
+	auto sentence_temp = sentence;
+	if (!sentence_temp.empty())
+	{
+		sentence_temp[0] = toupper(sentence_temp.front());
+		sentence_temp.append(dictionary->getFullStop());
+	}
+	return sentence_temp;
 }
 
 
