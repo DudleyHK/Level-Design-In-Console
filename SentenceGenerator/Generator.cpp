@@ -59,8 +59,12 @@ void Generator::addClause(const bool connect)
 
 void Generator::addPhrase()
 {
-	addNounPhrase();
-
+	auto flip_coin = getRandVal(0, 1);
+	
+	if(flip_coin) 
+		addNounPhrase();
+	else          
+		addPronounPhrase();
 
 	addVerbPhrase();
 	addNounPhrase();
@@ -78,7 +82,10 @@ void Generator::addNounPhrase()
 
 
 void Generator::addPronounPhrase()
-{}
+{
+	addPronoun();
+	addPreposition();
+}
 
 
 
