@@ -12,47 +12,178 @@
 
 Generator::Generator() :
 	dictionary(std::make_unique<Dictionary>())
-{
-
-}
+{ }
 
 
 
 const std::string Generator::generate()
 {
-	std::string sentence = "";
+	sentence = "";
+	addSentence();
+	fixGrammar();
 
-	auto rand_verb       = getRandVal(0, 9);
-	auto rand_noun       = getRandVal(0, 9);
-	auto rand_pronoun    = getRandVal(0, 4);
-	auto rand_determiner = getRandVal(0, 3);
+	return !sentence.empty() ? sentence : "ERROR_SENTENCE_EMPTY";
+}
+
+
+void Generator::addSentence()
+{
+	auto connect = false;
+	for (auto i = 0; i < totalClauses; i++)
+	{
+		// TODO: for more than one phrase
+		if (i % 2 == 0)
+		{
+			connect = false;
+		}
+		else
+		{
+			connect = true;
+		}
+		addClause(connect);	
+	}
+}
+
+
+/* Add a conjunciton if the sentence will be connected to another sentence. */
+void Generator::addClause(const bool connect)
+{
+	addPhrase();
 	
-	sentence += dictionary->getPronouns   (rand_pronoun)    + dictionary->getSpace();
-	sentence += dictionary->getVerbs      (rand_verb)       + dictionary->getSpace();
-	sentence += dictionary->getDeterminers(rand_determiner) + dictionary->getSpace();
-	sentence += dictionary->getNouns      (rand_noun);
+	if(connect)
+		addConjunction();
 
-	return grammar(sentence);
 }
 
 
 
+void Generator::addPhrase()
+{
+	addNounPhrase();
+
+
+	addVerbPhrase();
+	addNounPhrase();
+}
+
+
+
+void Generator::addNounPhrase()
+{
+	addDeterminer();
+	addAdjective();
+	addNoun();
+}
+
+
+
+void Generator::addPronounPhrase()
+{}
+
+
+
+void Generator::addVerbPhrase()
+{
+	addAdverb();
+	addVerb();
+	addPreposition();
+}
+
+
+
+void Generator::addDeterminer()
+{
+	auto rand_determiner = getRandVal(0, 4);
+	sentence += dictionary->getDeterminers(rand_determiner);
+	addSpace();
+}
+
+
+
+void Generator::addConjunction()
+{
+	auto rand_conjunc = getRandVal(0, 5);
+	sentence += dictionary->getConjunctions(rand_conjunc);
+	addSpace();
+}
+
+
+void Generator::addAdjective()
+{
+	auto rand_adj = getRandVal(0, 9);
+	sentence += dictionary->getAdjectives(rand_adj);
+	addSpace();
+}
+
+
+
+void Generator::addNoun()
+{
+	auto rand_noun = getRandVal(0, 9); 
+	sentence += dictionary->getNouns(rand_noun);
+	addSpace();
+}
+
+
+
+void Generator::addPronoun()
+{
+	auto rand_pronoun = getRandVal(0, 4);
+	sentence += dictionary->getPronouns(rand_pronoun);
+	addSpace();
+}
+
+
+
+void Generator::addVerb()
+{
+	auto rand_verb = getRandVal(0, 9);         
+	sentence += dictionary->getVerbs(rand_verb);
+	addSpace();
+}
+
+
+
+void Generator::addAdverb()
+{
+	auto rand_adverb = getRandVal(0, 9);
+	sentence += dictionary->getAdverbs(rand_adverb);
+	addSpace();
+}
+
+
+
+void Generator::addPreposition()
+{
+	auto rand_prepos = getRandVal(0, 5);
+	sentence += dictionary->getPrepositions(rand_prepos);
+	addSpace();
+}
+
+
+
+
 /* Currently:
-	- Make first letter uppercase
-	- Add fullstop
+- Make first letter uppercase
+- Add fullstop
 */
-const std::string Generator::grammar(std::string sentence)
+void Generator::fixGrammar()
 {
 	// make a copy just incase something happens to the sentence.
 	auto sentence_temp = sentence;
 	if (!sentence_temp.empty())
 	{
 		sentence_temp[0] = toupper(sentence_temp.front());
+		
+		// Remove the space at the end of the string. 
+		sentence_temp.pop_back();
 		sentence_temp.append(dictionary->getFullStop());
 	}
-	return sentence_temp;
+	sentence = sentence_temp;
 }
 
 
-
-
+void Generator::addSpace()
+{
+	sentence += dictionary->getSpace();
+}

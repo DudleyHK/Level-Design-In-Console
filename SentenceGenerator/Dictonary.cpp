@@ -112,7 +112,9 @@ void Dictionary::initAdverbs()
 		"loudly",
 		"patiently",
 		"now",
-		"recently"
+		"recently",
+		"nearly",
+		"gently"
 
 	};
 }
@@ -169,8 +171,8 @@ void Dictionary::initDeterminers()
 		"a",
 		"the",
 		"every",
-		"this"//,
-		//"those"
+		"this",
+		"those"
 	};
 }
 

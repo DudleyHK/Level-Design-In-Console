@@ -21,8 +21,6 @@ public:
 	~Generator() = default;
 
 	const std::string generate();
-	const std::string grammar(std::string sentence);
-
 	template<class Ty = int>
 	const unsigned short getRandVal(Ty min, Ty max)
 	{
@@ -37,6 +35,26 @@ public:
 
 private:
 	std::unique_ptr<Dictionary> dictionary = nullptr;
+	std::string sentence = "";
+	int totalClauses = 1;
+
+	void addSentence();
+	void addClause(const bool connect);
+	void addPhrase();
+	void addNounPhrase();
+	void addPronounPhrase();
+	void addVerbPhrase();
+	void addDeterminer();
+	void addConjunction();
+	void addAdjective();
+	void addNoun();
+	void addPronoun();
+	void addVerb();
+	void addAdverb();
+	void addPreposition();
+
+	void fixGrammar();
+	void addSpace();
 };
 
 
