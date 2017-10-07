@@ -44,14 +44,11 @@ private:
 	void addNounPhrase();
 	void addPronounPhrase();
 	void addVerbPhrase();
-	void addDeterminer();
-	void addConjunction();
 	void addAdjective();
 	void addNoun();
 	void addPronoun();
 	void addVerb();
 	void addAdverb();
-	void addPreposition();
 
 	void fixGrammar();
 	void addSpace();

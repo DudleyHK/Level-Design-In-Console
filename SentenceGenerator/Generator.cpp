@@ -84,7 +84,6 @@ void Generator::addNounPhrase()
 void Generator::addPronounPhrase()
 {
 	addPronoun();
-	addPreposition();
 }
 
 
@@ -93,26 +92,8 @@ void Generator::addVerbPhrase()
 {
 	addAdverb();
 	addVerb();
-	addPreposition();
 }
 
-
-
-void Generator::addDeterminer()
-{
-	auto rand_determiner = getRandVal(0, 4);
-	sentence += dictionary->getDeterminers(rand_determiner);
-	addSpace();
-}
-
-
-
-void Generator::addConjunction()
-{
-	auto rand_conjunc = getRandVal(0, 5);
-	sentence += dictionary->getConjunctions(rand_conjunc);
-	addSpace();
-}
 
 
 void Generator::addAdjective()
@@ -156,15 +137,6 @@ void Generator::addAdverb()
 {
 	auto rand_adverb = getRandVal(0, 9);
 	sentence += dictionary->getPickUpCache(rand_adverb);
-	addSpace();
-}
-
-
-
-void Generator::addPreposition()
-{
-	auto rand_prepos = getRandVal(0, 5);
-	sentence += dictionary->getPrepositions(rand_prepos);
 	addSpace();
 }
 
