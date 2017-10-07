@@ -61,10 +61,10 @@ void Generator::addPhrase()
 {
 	auto flip_coin = getRandVal(0, 1);
 	
-	if(flip_coin) 
+	//if(flip_coin) 
 		addNounPhrase();
-	else          
-		addPronounPhrase();
+	//else          
+	//	addPronounPhrase();
 
 	addVerbPhrase();
 	addNounPhrase();
@@ -126,7 +126,8 @@ void Generator::addAdjective()
 
 void Generator::addNoun()
 {
-	auto rand_noun = getRandVal(0, 9); 
+	auto size = static_cast<int>(dictionary->nouns.size());
+	auto rand_noun = getRandVal(0, size); 
 	sentence += dictionary->getNouns(rand_noun);
 	addSpace();
 }

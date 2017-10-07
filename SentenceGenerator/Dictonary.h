@@ -27,6 +27,17 @@ public:
 	const std::string getSpace();
 	const std::string getFullStop();
 
+	// CONTAINERS
+	std::vector<std::string> nouns;
+	std::vector<std::string> verbs;
+	std::vector<std::string> adjectives;
+	std::vector<std::string> adverbs;
+	std::vector<std::string> pronouns;
+	std::vector<std::string> prepositions;
+	std::vector<std::string> conjunctions;
+	std::vector<std::string> determiners;
+
+
 private:
 
 	//INITIALISATION
@@ -41,15 +52,7 @@ private:
 	void initDeterminers();
 
 
-	// CONTAINERS
-	std::vector<std::string> nouns        ;
-	std::vector<std::string> verbs        ;
-	std::vector<std::string> adjectives   ;
-	std::vector<std::string> adverbs      ;
-	std::vector<std::string> pronouns     ;
-	std::vector<std::string> prepositions ;
-	std::vector<std::string> conjunctions ;
-	std::vector<std::string> determiners  ;
+
 
 	// GRAMMAR
 	const std::string SPACE     = " ";

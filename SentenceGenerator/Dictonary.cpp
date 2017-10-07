@@ -42,21 +42,20 @@ void Dictionary::initAll()
 }
 
 
-
 void Dictionary::initNouns()
 {
 	nouns =
 	{
-		"boy",
-		"country",
+		"boy","girl","cat","dog","man","woman",
+		"country", "nation", "state", "county"
 		"city",
-		"birth",
-		"danger",
-		"time",
-		"Africa",
-		"coffee",
-		"rain",
-		"audience"
+		//"birth",
+		//"danger",
+		//"time",
+		//"Africa",
+		//"coffee",
+		"rainfall",
+		//"audience",
 	};
 }
 
@@ -171,8 +170,7 @@ void Dictionary::initDeterminers()
 		"a",
 		"the",
 		"every",
-		"this",
-		"those"
+		"this"
 	};
 }
 
