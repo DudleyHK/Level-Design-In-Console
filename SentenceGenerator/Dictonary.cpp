@@ -9,14 +9,11 @@
 
 Dictionary::Dictionary()
 {
-	nouns.reserve(10);
-	verbs.reserve(10);
-	adjectives.reserve(10);
-	adverbs.reserve(10);
-	pronouns.reserve(10);
-	prepositions.reserve(10);
-	conjunctions.reserve(10);
-	determiners.reserve(10);
+	platforming.reserve(10);
+	newSkillLearning.reserve(10);
+	combat.reserve(10);
+	pickUpCache.reserve(10);
+	bossEncounters.reserve(10);
 
 	initAll();
 
@@ -26,25 +23,22 @@ Dictionary::Dictionary()
 
 void Dictionary::initAll()
 {
-#ifdef _DEBUG
+	#ifdef _DEBUG
 	if (init_off)
 		return;
-#endif // DEBUG
+	#endif // DEBUG
 
-	initNouns();
-	initVerbs();
-	initAdjectives();
-	initAdverbs();
-	initPronouns();
-	initPrepositions();
-	initConjunctions();
-	initDeterminers();
+	initPlatforming();
+	initNewSkillLearning();
+	initCombat();
+	initPickUpCache();
+	initBossEncounter();
 }
 
 
-void Dictionary::initNouns()
+void Dictionary::initPlatforming()
 {
-	nouns =
+	platforming =
 	{
 		"boy","girl","cat","dog","man","woman",
 		"country", "nation", "state", "county"
@@ -55,9 +49,9 @@ void Dictionary::initNouns()
 
 
 
-void Dictionary::initVerbs()
+void Dictionary::initNewSkillLearning()
 {
-	verbs =
+	newSkillLearning =
 	{
 		"jump",
 		"stop",
@@ -74,9 +68,9 @@ void Dictionary::initVerbs()
 
 
 
-void Dictionary::initAdjectives()
+void Dictionary::initCombat()
 {
-	adjectives =
+	combat =
 	{
 		"excited",
 		"green",
@@ -94,9 +88,9 @@ void Dictionary::initAdjectives()
 
 
 
-void Dictionary::initAdverbs()
+void Dictionary::initPickUpCache()
 {
-	adverbs =
+	pickUpCache =
 	{
 		"fast",
 		"loudly",
@@ -114,9 +108,9 @@ void Dictionary::initAdverbs()
 
 
 
-void Dictionary::initPronouns()
+void Dictionary::initBossEncounter()
 {
-	pronouns =
+	bossEncounters =
 	{
 		"I",
 		"he",
@@ -127,101 +121,37 @@ void Dictionary::initPronouns()
 }
 
 
-
-void Dictionary::initPrepositions()
+std::string Dictionary::getPlatforming(const int idx)
 {
-	prepositions =
-	{
-		"from",
-		"for",
-		"after",
-		"in",
-		"to",
-		"on"
-	};
+	return !platforming.empty() ? platforming[idx] : ERROR_PLATFORMING;
 }
 
 
 
-void Dictionary::initConjunctions()
-{	conjunctions =
-	{
-		"but",
-		"for",
-		"if",
-		"or",
-		"and",
-		"when"
-	};
+std::string Dictionary::getNewSkillLearning(const int idx)
+{
+	return !newSkillLearning.empty() ? newSkillLearning[idx] : ERROR_NEW_SKILL_LEARNING;
 }
 
 
 
-void Dictionary::initDeterminers()
+std::string Dictionary::getCombat(const int idx)
 {
-	determiners =
-	{
-		"a",
-		"the",
-		"every",
-		"this"
-	};
+	return !combat.empty() ? combat[idx] : ERROR_COMBAT;
 }
 
 
 
-std::string Dictionary::getNouns(const int idx)
+std::string Dictionary::getPickUpCache(const int idx)
 {
-	return !nouns.empty() ? nouns[idx] : ERROR_NOUN;
+	return !pickUpCache.empty() ? pickUpCache[idx] : ERROR_PICK_UP_CACHE;
 }
 
 
 
-std::string Dictionary::getVerbs(const int idx)
+std::string Dictionary::getBossEncounter(const int idx)
 {
-	return !verbs.empty() ? verbs[idx] : ERROR_VERB;
-}
-
-
-
-std::string Dictionary::getAdjectives(const int idx)
-{
-	return !adjectives.empty() ? adjectives[idx] : ERROR_ADJECTIVE;
-}
-
-
-
-std::string Dictionary::getAdverbs(const int idx)
-{
-	return !adverbs.empty() ? adverbs[idx] : ERROR_ADVERB;
-}
-
-
-
-std::string Dictionary::getPronouns(const int idx)
-{
-	return !pronouns.empty() ? pronouns[idx] : ERROR_PRONOUN;
-}
-
-
-
-std::string Dictionary::getPrepositions(const int idx)
-{
-	return !prepositions.empty() ? prepositions[idx] : ERROR_PREPOS;
-}
-
-
-
-std::string Dictionary::getConjunctions(const int idx)
-{
-	return !conjunctions.empty() ? conjunctions[idx] : ERROR_CONJUNC;
-}
-
-
-
-std::string Dictionary::getDeterminers(const int idx)
-{
-	return !determiners.empty() ? determiners[idx] : ERROR_DETERM;
+	return !bossEncounters.empty() ? bossEncounters[idx] : ERROR_BOSS_ENCOUNTER;
 }
 
 

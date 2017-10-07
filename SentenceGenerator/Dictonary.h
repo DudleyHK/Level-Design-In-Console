@@ -15,42 +15,34 @@ public:
 	Dictionary();
 	~Dictionary() = default;
 
+	// 
+	std::string getPlatforming(const int idx);
+	std::string getNewSkillLearning(const int idx);
+	std::string getCombat(const int idx);
+	std::string getPickUpCache(const int idx);
+	std::string getBossEncounter(const int idx);
 
-	std::string getNouns(const int idx);
-	std::string getVerbs(const int idx);
-	std::string getAdjectives(const int idx);
-	std::string getAdverbs(const int idx);
-	std::string getPronouns(const int idx);
-	std::string getPrepositions(const int idx);
-	std::string getConjunctions(const int idx);
-	std::string getDeterminers(const int idx);
+	// Grammar
 	const std::string getSpace();
 	const std::string getFullStop();
 
 	// CONTAINERS
-	std::vector<std::string> nouns;
-	std::vector<std::string> verbs;
-	std::vector<std::string> adjectives;
-	std::vector<std::string> adverbs;
-	std::vector<std::string> pronouns;
-	std::vector<std::string> prepositions;
-	std::vector<std::string> conjunctions;
-	std::vector<std::string> determiners;
+	std::vector<std::string> platforming;
+	std::vector<std::string> newSkillLearning;
+	std::vector<std::string> combat;
+	std::vector<std::string> pickUpCache;
+	std::vector<std::string> bossEncounters;
 
 
 private:
 
 	//INITIALISATION
 	void initAll();
-	void initNouns();
-	void initVerbs();
-	void initAdjectives();
-	void initAdverbs();
-	void initPronouns();
-	void initPrepositions();
-	void initConjunctions();
-	void initDeterminers();
-
+	void initPlatforming();
+	void initNewSkillLearning();
+	void initCombat();
+	void initPickUpCache();
+	void initBossEncounter();
 
 
 
@@ -60,14 +52,11 @@ private:
 
 
 	// ERROR STR
-	const std::string ERROR_NOUN      = "ERROR_NOUN";
-	const std::string ERROR_VERB      = "ERROR_VERB";
-	const std::string ERROR_ADJECTIVE = "ERROR_ADJECTIVE";
-	const std::string ERROR_ADVERB    = "ERROR_ADVERB";
-	const std::string ERROR_PRONOUN   = "ERROR_PRONOUN";
-	const std::string ERROR_PREPOS    = "ERROR_PREPOSITION";
-	const std::string ERROR_CONJUNC   = "ERROR_CONJUNCTION";
-	const std::string ERROR_DETERM    = "ERROR_DETERMINER";
+	const std::string ERROR_PLATFORMING         = "ERROR_PLATFORMING";
+	const std::string ERROR_NEW_SKILL_LEARNING  = "ERROR_NEW_SKILL_LEARNING";
+	const std::string ERROR_COMBAT              = "ERROR_COMBAT";
+	const std::string ERROR_PICK_UP_CACHE       = "ERROR_PICK_UP_CACHE";
+	const std::string ERROR_BOSS_ENCOUNTER      = "ERROR_BOSS_ENCOUNTER";
 
 
 // DEBUG

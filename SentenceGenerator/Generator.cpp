@@ -118,7 +118,7 @@ void Generator::addConjunction()
 void Generator::addAdjective()
 {
 	auto rand_adj = getRandVal(0, 9);
-	sentence += dictionary->getAdjectives(rand_adj);
+	sentence += dictionary->getCombat(rand_adj);
 	addSpace();
 }
 
@@ -126,9 +126,9 @@ void Generator::addAdjective()
 
 void Generator::addNoun()
 {
-	auto size = static_cast<int>(dictionary->nouns.size());
+	auto size = static_cast<int>(dictionary->platforming.size());
 	auto rand_noun = getRandVal(0, size); 
-	sentence += dictionary->getNouns(rand_noun);
+	sentence += dictionary->getPlatforming(rand_noun);
 	addSpace();
 }
 
@@ -137,7 +137,7 @@ void Generator::addNoun()
 void Generator::addPronoun()
 {
 	auto rand_pronoun = getRandVal(0, 4);
-	sentence += dictionary->getPronouns(rand_pronoun);
+	sentence += dictionary->getBossEncounter(rand_pronoun);
 	addSpace();
 }
 
@@ -146,7 +146,7 @@ void Generator::addPronoun()
 void Generator::addVerb()
 {
 	auto rand_verb = getRandVal(0, 9);         
-	sentence += dictionary->getVerbs(rand_verb);
+	sentence += dictionary->getNewSkillLearning(rand_verb);
 	addSpace();
 }
 
@@ -155,7 +155,7 @@ void Generator::addVerb()
 void Generator::addAdverb()
 {
 	auto rand_adverb = getRandVal(0, 9);
-	sentence += dictionary->getAdverbs(rand_adverb);
+	sentence += dictionary->getPickUpCache(rand_adverb);
 	addSpace();
 }
 
