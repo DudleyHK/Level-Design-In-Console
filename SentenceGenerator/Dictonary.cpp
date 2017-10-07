@@ -49,13 +49,7 @@ void Dictionary::initNouns()
 		"boy","girl","cat","dog","man","woman",
 		"country", "nation", "state", "county"
 		"city",
-		//"birth",
-		//"danger",
-		//"time",
-		//"Africa",
-		//"coffee",
-		"rainfall",
-		//"audience",
+		"rainfall"
 	};
 }
 
