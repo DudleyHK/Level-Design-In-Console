@@ -6,7 +6,6 @@
 #pragma once
 
 #include <string>
-#include <random>
 #include <memory>
 #include <vector>
 
@@ -21,16 +20,7 @@ public:
 	~Generator() = default;
 
 	const std::string generate();
-	template<class Ty = int>
-	const unsigned short getRandVal(Ty min, Ty max)
-	{
-		std::random_device rand_device;                    // only used once to initialise (seed) engine
-		std::mt19937 mt_engine(rand_device());             // random-number engine used (Mersenne-Twister in this case)
-		std::uniform_int_distribution<unsigned short> uni_dist(min, max);  // guaranteed unbiased
 
-		auto rand_val = uni_dist(mt_engine);
-		return rand_val;
-	}
 
 
 private:
@@ -38,20 +28,34 @@ private:
 	std::string sentence = "";
 	int totalClauses = 1;
 
-	void addSentence();
-	void addClause(const bool connect);
-	void addPhrase();
-	void addNounPhrase();
-	void addPronounPhrase();
-	void addVerbPhrase();
-	void addAdjective();
-	void addNoun();
-	void addPronoun();
-	void addVerb();
-	void addAdverb();
 
+	/* Layer One */
+	void addLevel();
+	
+	/* Layer Two */
+	void addFirstPhase();
+	void addCentralPhase();
+	void addEndPhase();
+
+	/* Layer Three */
+	void safeSection();
+	void learnSection();
+	void conflictSection();
+	void gainSection();
+	void endBossSection();
+
+	/* Layer Four */
+	void addSafeZone();
+	void addPlatforming();
+	void addNewSkillLearning();
+	void addCombat();
+	void addPickupCache();
+	void addBossEncounter();
+
+	/* Grammar */
 	void fixGrammar();
 	void addSpace();
+	void addCommar();
 };
 
 

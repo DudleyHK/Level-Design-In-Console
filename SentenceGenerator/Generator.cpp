@@ -19,126 +19,137 @@ Generator::Generator() :
 const std::string Generator::generate()
 {
 	sentence = "";
-	addSentence();
+	addLevel();
 	fixGrammar();
 
 	return !sentence.empty() ? sentence : "ERROR_SENTENCE_EMPTY";
 }
 
 
-void Generator::addSentence()
+
+/* Layer One */
+void Generator::addLevel()
 {
-	auto connect = false;
-	for (auto i = 0; i < totalClauses; i++)
-	{
-		// TODO: for more than one phrase
-		if (i % 2 == 0)
-		{
-			connect = false;
-		}
-		else
-		{
-			connect = true;
-		}
-		addClause(connect);	
-	}
+	addFirstPhase();
+	addCentralPhase();
+	addEndPhase();
 }
 
 
-/* Add a conjunciton if the sentence will be connected to another sentence. */
-void Generator::addClause(const bool connect)
+/* Layer Two */
+void Generator::addFirstPhase()
 {
-	addPhrase();
-	
-	if(connect)
-		addConjunction();
-
+	safeSection();
+	learnSection();
 }
 
 
 
-void Generator::addPhrase()
-{
-	auto flip_coin = getRandVal(0, 1);
-	
-	//if(flip_coin) 
-		addNounPhrase();
-	//else          
-	//	addPronounPhrase();
 
-	addVerbPhrase();
-	addNounPhrase();
+void Generator::addCentralPhase()
+{
+	conflictSection();
+	gainSection();
 }
 
 
 
-void Generator::addNounPhrase()
+void Generator::addEndPhase()
 {
-	addDeterminer();
-	addAdjective();
-	addNoun();
+	endBossSection();
+}
+
+
+/* Layer Three */
+void Generator::safeSection()
+{
+	addSafeZone();
+	addPlatforming();
 }
 
 
 
-void Generator::addPronounPhrase()
+void Generator::learnSection()
 {
-	addPronoun();
+	addNewSkillLearning();
+	addPlatforming();
 }
 
 
 
-void Generator::addVerbPhrase()
+void Generator::conflictSection()
 {
-	addAdverb();
-	addVerb();
+	addCombat();
 }
 
 
 
-void Generator::addAdjective()
+void Generator::gainSection()
 {
-	auto rand_adj = getRandVal(0, 9);
-	sentence += dictionary->getCombat(rand_adj);
+	addPlatforming();
+	addPickupCache();
+}
+
+
+
+void Generator::endBossSection()
+{
+	addPlatforming();
+	addBossEncounter();
+	addPlatforming();
+}
+
+
+
+
+
+/* Layer Four */
+void Generator::addSafeZone()
+{
+	sentence += dictionary->getLevelPart(Dictionary::LevelPart::SAFE_ZONE);
+	addSpace();
+}
+
+
+void Generator::addPlatforming()
+{
+	sentence += dictionary->getLevelPart(Dictionary::LevelPart::PLATFORMING);
 	addSpace();
 }
 
 
 
-void Generator::addNoun()
+void Generator::addNewSkillLearning()
 {
-	auto size = static_cast<int>(dictionary->platforming.size());
-	auto rand_noun = getRandVal(0, size); 
-	sentence += dictionary->getPlatforming(rand_noun);
+	sentence += dictionary->getLevelPart(Dictionary::LevelPart::NEW_SKILL_LEARNING);
 	addSpace();
 }
 
 
 
-void Generator::addPronoun()
+void Generator::addCombat()
 {
-	auto rand_pronoun = getRandVal(0, 4);
-	sentence += dictionary->getBossEncounter(rand_pronoun);
+	sentence += dictionary->getLevelPart(Dictionary::LevelPart::COMBAT); 
 	addSpace();
 }
 
 
 
-void Generator::addVerb()
+void Generator::addPickupCache()
 {
-	auto rand_verb = getRandVal(0, 9);         
-	sentence += dictionary->getNewSkillLearning(rand_verb);
+	sentence += dictionary->getLevelPart(Dictionary::LevelPart::NEW_SKILL_LEARNING);
 	addSpace();
 }
 
 
 
-void Generator::addAdverb()
+void Generator::addBossEncounter()
 {
-	auto rand_adverb = getRandVal(0, 9);
-	sentence += dictionary->getPickUpCache(rand_adverb);
+	sentence += dictionary->getLevelPart(Dictionary::LevelPart::BOSS_ENCOUNTER);
 	addSpace();
 }
+
+
 
 
 
@@ -162,8 +173,14 @@ void Generator::fixGrammar()
 	sentence = sentence_temp;
 }
 
-
+// DEBUG
 void Generator::addSpace()
+{
+	sentence += dictionary->getCommar();
+}
+
+
+void Generator::addCommar()
 {
 	sentence += dictionary->getSpace();
 }
