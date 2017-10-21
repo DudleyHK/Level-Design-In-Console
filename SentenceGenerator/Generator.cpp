@@ -73,6 +73,7 @@ void Generator::learnSection()
 {
 	addNewSkillLearning();
 	addPlatforming();
+
 }
 
 
