@@ -7,12 +7,22 @@
 
 #include <iostream>
 #include "Generator.h"
+#include "MarkovMain.h"
 
+void RunSentenceGenerator();
+void RunMarkovChain();
 
 int main()
 {
+	RunMarkovChain();
+	return 0;
+}
+
+
+void RunSentenceGenerator()
+{
 	Generator gen;
-	while(true)
+	while (true)
 	{
 		std::cout << "..................................." << std::endl;
 		std::cout << gen.generate() << std::endl;
@@ -20,8 +30,19 @@ int main()
 		system("PAUSE");
 		std::cout << std::endl;
 	}
-	return 0;
+
 }
+
+
+void RunMarkovChain()
+{
+	MarkovMain markovMain;
+	markovMain.run();
+	system("PAUSE");
+
+	markovMain.shutdown();
+}
+
 
 
 
