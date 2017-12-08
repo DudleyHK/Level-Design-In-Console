@@ -1,10 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.16
+VisualStudioVersion = 15.0.27004.2006
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LevelDesignConsoleTest", "LevelDesignConsoleTest\LevelDesignConsoleTest.vcxproj", "{C256E97B-AB54-4A8F-B7F7-0B2A5B6EDC64}"
 	ProjectSection(ProjectDependencies) = postProject
+		{27EAE828-4EB9-46FB-AFEC-B5916F67309A} = {27EAE828-4EB9-46FB-AFEC-B5916F67309A}
 		{CB371CAD-2215-4C46-95F1-A0DFBC2003DA} = {CB371CAD-2215-4C46-95F1-A0DFBC2003DA}
 		{51593DDD-2F84-4B20-9ECF-0819CA23B433} = {51593DDD-2F84-4B20-9ECF-0819CA23B433}
 	EndProjectSection
@@ -14,9 +15,6 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SentenceGenerator", "SentenceGenerator\SentenceGenerator.vcxproj", "{CB371CAD-2215-4C46-95F1-A0DFBC2003DA}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MarkovChain", "MarkovChain\MarkovChain.vcxproj", "{27EAE828-4EB9-46FB-AFEC-B5916F67309A}"
-	ProjectSection(ProjectDependencies) = postProject
-		{C256E97B-AB54-4A8F-B7F7-0B2A5B6EDC64} = {C256E97B-AB54-4A8F-B7F7-0B2A5B6EDC64}
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,5 +59,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {342C5B49-E073-4A79-9223-CCE87E4EC0F7}
 	EndGlobalSection
 EndGlobal

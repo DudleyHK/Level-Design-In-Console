@@ -9,6 +9,7 @@
 #include "Generator.h"
 #include "MarkovMain.h"
 
+
 void RunSentenceGenerator();
 void RunMarkovChain();
 
