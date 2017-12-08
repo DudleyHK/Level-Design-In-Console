@@ -41,10 +41,11 @@ private:
 
 
 
-	//Matrix* transition_matrix;
+
 	const std::string INITIAL_SEQUENCE = "987235234"; // Enter string of numbers between 1 and 4
 	unsigned short sequence_total = 0;
 
+	// unsigned short number_of_permutations = 5;
 
 
 	std::vector<std::tuple<float, float, float>> transition_matrix;

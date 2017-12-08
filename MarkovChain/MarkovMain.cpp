@@ -20,24 +20,24 @@ MarkovMain::MarkovMain()
 
 const bool MarkovMain::run()
 {
-	//transition_matrix = new Matrix();
 	sequence_total = INITIAL_SEQUENCE.size();
-	std::cout << "First Sequence: " << INITIAL_SEQUENCE << std::endl;
+	std::cout << "Initial Sequence: " << INITIAL_SEQUENCE << std::endl;
 	
-	fillTransitionMatrix();
-	fillDenominatorList();
-	calculateProbability();
+	// Run this x number of times. Each time feeding the values back
+	//	in to the translation matrix to build up their probability.
+	// for number_pf_permutations
+	   // 	
+		fillTransitionMatrix();
+		fillDenominatorList();
+		calculateProbability();
+		outputSequence();
 
-	
-	outputSequence();
-	
 
-	//transition_matrix->printMatrix();
 	return true;
 }
 
 // Initialise the transition_matrix grid and fill it. 
-void MarkovMain::fillTransitionMatrix()
+void MarkovMain::fillTransitionMatrix(/*sequence*/)
 {
 	for(unsigned short i = 0; i < (sequence_total - 1); i++)
 	{
@@ -47,6 +47,7 @@ void MarkovMain::fillTransitionMatrix()
 		float from_value = std::atof(&from);
 		float to_value   = std::atof(&to);
 	
+		// TODO: Put this in a seperate function
 		// Fill initial sequence with numbers.
 		initial_sequence.push_back(from_value);
 		initial_sequence.push_back(0.f);
@@ -92,16 +93,14 @@ void MarkovMain::calculateProbability()
 }
 
 
-void MarkovMain::outputSequence()
+void MarkovMain::outputSequence(/*sequence, permutation_id*/)
 {
 	auto next_value = getStartValue();
-	std::vector<std::pair<float, float>> probability_list;
-
-	std::cout << "Next sequence: ";
+	std::cout << "Permuation Sequence 1: ";
 	for(int i = 0; i < INITIAL_SEQUENCE.size(); i++)
 	{
 		std::cout << next_value;
-		probability_list = getProbabilityList(next_value);
+		auto probability_list = getProbabilityList(next_value);
 
 		// if the list is empty pick a new number to go from.
 		if(probability_list.size() <= 0)
