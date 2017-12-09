@@ -31,17 +31,26 @@ void RunSentenceGenerator()
 		system("PAUSE");
 		std::cout << std::endl;
 	}
-
 }
 
 
 void RunMarkovChain()
 {
-	MarkovMain markovMain;
-	markovMain.run();
+	MarkovMain* markovMain = new MarkovMain();
+	if(markovMain->init())
+	{
+		markovMain->run();
+	}
 	system("PAUSE");
 
-	markovMain.shutdown();
+
+	// Clean up. 
+	markovMain->shutdown();
+	if(markovMain)
+	{
+		delete markovMain;
+		markovMain = nullptr;
+	}
 }
 
 
