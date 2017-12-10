@@ -14,47 +14,69 @@ MarkovMain::MarkovMain()
 { 
 	transition_matrix.reserve(64);
 	denominators.reserve(32);
-	initial_sequence.reserve(32);
+	current_sequence.reserve(32);
 }
 
 
-const bool MarkovMain::run()
+const bool MarkovMain::init()
 {
-	sequence_total = INITIAL_SEQUENCE.size();
-	std::cout << "Initial Sequence: " << INITIAL_SEQUENCE << std::endl;
+	std::cout << "Enter a sequence of numbers: ";
+	std::cin >> initial_sequence;
+	std::cout << std::endl;
+
+	std::cout << "How many permutations do you want? ";
+	std::cin >> number_of_permutations;
+	std::cout << std::endl;
+
+	std::cout << "Go!" << std::endl << std::endl << std::endl;
+
+	std::cin.clear();
+
+
+
+	sequence_total = initial_sequence.size();
+
+	if(sequence_total <= 0)
+	{
+		std::cout << "ERROR: sequence_total = 0 in MarkovMain init()" << std::endl;
+		return false;
+	}
+
+	std::cout << "Initial Sequence: ";
+	for(unsigned short i = 0; i < sequence_total; i++)
+	{
+		float value = parseCharToFloat(initial_sequence[i]);
+		current_sequence.push_back(value);
+
+		std::cout << value;
+	}
+	std::cout << std::endl;
 	
-	// Run this x number of times. Each time feeding the values back
-	//	in to the translation matrix to build up their probability.
-	// for number_pf_permutations
-	   // 	
-		fillTransitionMatrix();
-		fillDenominatorList();
-		calculateProbability();
-		outputSequence();
-
-
 	return true;
 }
 
+void MarkovMain::run()
+{
+	for(unsigned short i = 1; i <= number_of_permutations; i++)
+	{
+		fillTransitionMatrix();
+		fillDenominatorList();
+		calculateProbability();
+		createNewSequence(i);
+	}
+
+	outputFinalData();
+}
+
 // Initialise the transition_matrix grid and fill it. 
-void MarkovMain::fillTransitionMatrix(/*sequence*/)
+void MarkovMain::fillTransitionMatrix()
 {
 	for(unsigned short i = 0; i < (sequence_total - 1); i++)
-	{
-		// Parse the char to float.
-		char from = INITIAL_SEQUENCE[i];
-		char to   = INITIAL_SEQUENCE[i + 1];
-		float from_value = std::atof(&from);
-		float to_value   = std::atof(&to);
-	
-		// TODO: Put this in a seperate function
-		// Fill initial sequence with numbers.
-		initial_sequence.push_back(from_value);
-		initial_sequence.push_back(0.f);
-		initial_sequence[i + 1] = to_value;
-
-		// log the values.
-		logDigit(from_value, to_value);
+	{		
+		float from = current_sequence[i];
+		float to   = current_sequence[i + 1];
+		
+		logDigit(from, to);
 	}
 }
 
@@ -93,28 +115,33 @@ void MarkovMain::calculateProbability()
 }
 
 
-void MarkovMain::outputSequence(/*sequence, permutation_id*/)
+void MarkovMain::createNewSequence(const unsigned short permutation_index)
 {
+	std::vector<float> next_sequence;
 	auto next_value = getStartValue();
-	std::cout << "Permuation Sequence 1: ";
-	for(int i = 0; i < INITIAL_SEQUENCE.size(); i++)
+
+	std::cout << "Permuation Sequence " << permutation_index << ": ";
+	for(int i = 0; i < sequence_total; i++)
 	{
 		std::cout << next_value;
-		auto probability_list = getProbabilityList(next_value);
+		next_sequence.push_back(next_value);
 
+		auto probability_list = getProbabilityList(next_value);
 		// if the list is empty pick a new number to go from.
 		if(probability_list.size() <= 0)
 		{
 			next_value = getStartValue();
 			continue;
 		}
-
 		next_value = selectNextValue(probability_list);
 	}
 	std::cout << std::endl;
+
+	// Set new current sequence.
+	current_sequence.clear();
+	current_sequence = next_sequence;
+	sequence_total = current_sequence.size();
 }
-
-
 
 
 const float MarkovMain::selectNextValue(const std::vector<std::pair<float, float>> probability_list)
@@ -132,8 +159,6 @@ const float MarkovMain::selectNextValue(const std::vector<std::pair<float, float
 	}
 	return next_value;
 }
-
-
 
 
 const float MarkovMain::getDenominator(const float from)
@@ -166,17 +191,25 @@ const bool MarkovMain::chanceSelected(const float probability)
 	return getRandomFloat(0.f, 1.f) < probability;
 }
 
+
 const float MarkovMain::getStartValue()
 {
-	for(auto& value : initial_sequence)
+	for(auto& value : current_sequence)
 	{
 		if(getRandomFloat(0.f, 1.f) < 0.5f)
 		{
 			return value;
 		}
 	}
-	return initial_sequence[0];
+	return current_sequence[0];
 }
+
+
+const float MarkovMain::parseCharToFloat(const char character)
+{
+	return std::atof(&character);
+}
+
 
 // Return a list with each number, value, can go to. Along with the probability.
 const std::vector<std::pair<float, float>> MarkovMain::getProbabilityList(const float from_value)
@@ -214,6 +247,7 @@ void MarkovMain::shutdown()
 // Tally up each row to get the denominator value. 
 void MarkovMain::fillDenominatorList()
 {
+	int index = 0;
 	for(auto& container : transition_matrix)
 	{
 		// Get the row value (from) and the probability value (value).
@@ -221,18 +255,15 @@ void MarkovMain::fillDenominatorList()
 		auto value = std::get<2>(container);
 
 		// If the denominator list doesn't contain the row value. 
-		if(!pairContains(from))
+		if(!pairContains(from, index))
 		{
 			// Add it to the list with a row total of zero.
 			denominators.push_back({from, 0.f});
 		}
 
-		// find the index at which this row value sits in the denominator list.
-		auto index = getPairListID(from);
-
 		// add the probability value from the transition matrix. 
 		// This will end up giving a total for each row.
-		denominators[index].second += value;
+ 		denominators[index].second += value;
 	}
 }
 
@@ -241,17 +272,17 @@ void MarkovMain::fillDenominatorList()
 // Then, adjust the probablity of this combination accordinly. 
 void MarkovMain::logDigit(const float from, const float to)
 {
-	if(!tupleContains(from, to))
+	int index = 0;
+	if(!transitionMatrixContains(from, to, index))
 	{
 		transition_matrix.push_back({ from, to, 0.f });
 	}
-	
-	auto index = getTupleListID(from, to);
-	auto row_tuple = transition_matrix[index];
+	auto container = transition_matrix[index];
 	
 	// Get the current probability at that index and increment it. 
 	// The percentage can be found later.
-	float x = std::get<2>(row_tuple);
+	
+	float x = std::get<2>(container);
 	x++;
 	std::get<2>(transition_matrix[index]) = x;
 
@@ -259,10 +290,27 @@ void MarkovMain::logDigit(const float from, const float to)
 	// std::cout << "From: " << from << ". To: " << to << ". Hits: " << x << std::endl;
 }
 
-
-
-const bool MarkovMain::pairContains(const float from)
+void MarkovMain::outputFinalData()
 {
+	std::cout << "______________________________" << std::endl;
+	std::cout << "Final Transition Matrix Data: " << std::endl;
+	for(auto& container : transition_matrix)
+	{
+		auto container_from  = std::get<0>(container);
+		auto container_to    = std::get<1>(container);
+		auto container_value = std::get<2>(container);
+
+		std::cout << "From: " << container_from << " To: " << container_to << " Probability of: " << container_value << std::endl;
+
+
+	}
+}
+
+
+
+const bool MarkovMain::pairContains(const float from, int& index)
+{
+	index = 0;
 	for (auto& pair : denominators)
 	{
 		auto first = pair.first;
@@ -270,57 +318,25 @@ const bool MarkovMain::pairContains(const float from)
 		{
 			return true;
 		}
+		index++;
 	}
 	return false;
 }
-
-const unsigned short MarkovMain::getPairListID(const float from)
-{
-	unsigned short i = 0;
-	for (auto& pair : denominators)
-	{
-		auto first = pair.first;
-		if (first == from)
-		{
-			return i;
-		}
-		i++;
-	}
-	return  i;
-}
-
 
 // Return true if the current combination has already been found.
-const bool MarkovMain::tupleContains(const float from, const float to)
+const bool MarkovMain::transitionMatrixContains(const float from, const float to, int& index)
 {
-	for (auto& tuple : transition_matrix)
+	index = 0;
+	for (auto& container : transition_matrix)
 	{
-		auto tuple_from = std::get<0>(tuple);
-		auto tuple_to   = std::get<1>(tuple);
+		auto container_from = std::get<0>(container);
+		auto container_to   = std::get<1>(container);
 	
-		if (tuple_from == from && tuple_to == to)
+		if (container_from == from && container_to == to)
 		{
 			return true;
 		}
+		index++;
 	}
 	return false;
-}
-
-
-
-const unsigned short MarkovMain::getTupleListID(const float from, const float to)
-{
-	unsigned short i = 0;
-	for (auto& tuple : transition_matrix)
-	{
-		auto tuple_from = std::get<0>(tuple);
-		auto tuple_to = std::get<1>(tuple);
-	
-		if (tuple_from == from && tuple_to == to)
-		{
-			return i;
-		}
-		i++;
-	}
-	return  i;
 }
