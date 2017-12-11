@@ -27,7 +27,7 @@ private:
 	void createNewSequence(const unsigned short permutation_index);
 	void logDigit(const float digit, const float previous_value);
 	void outputFinalData();
-	const float selectNextValue(const std::vector<std::pair<float, float>> probability_list);
+	const float selectNextValue(const std::vector<std::pair<float, float>> probability_list, const bool select_at_random = false);
 	const float getDenominator(const float from);
 	const float getRandomFloat(const float min_inclusive, const float max_exculsive);
 	const float getStartValue();
@@ -45,4 +45,5 @@ private:
 	std::string initial_sequence = "";
 	unsigned short number_of_permutations = 0;
 	unsigned short sequence_total = 0;
+	bool select_at_random = false;
 };

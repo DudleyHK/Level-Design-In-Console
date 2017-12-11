@@ -28,6 +28,19 @@ const bool MarkovMain::init()
 	std::cin >> number_of_permutations;
 	std::cout << std::endl;
 
+	char selection_process = 'N';
+	std::cout << "Choose which type of selection process is used" << std::endl;
+	std::cout << "Press 'Y' to use probability. Press 'N' to flip a coin." << std::endl;
+	std::cin >> selection_process;
+	std::cout << std::endl;
+
+	putchar(toupper(selection_process));
+	switch (selection_process)
+	{
+	case 'Y': select_at_random = false; break;
+	case 'N': select_at_random = true;  break;
+	}
+
 	std::cout << "Go!" << std::endl << std::endl << std::endl;
 
 	std::cin.clear();
@@ -104,13 +117,9 @@ void MarkovMain::calculateProbability()
 
 		// the probability is equal to itself over the rows total.
 		value /= denominator;
+
 		std::get<2>(transition_matrix[i]) = value;
-
-
-		// output to console
 		// std::cout << "Row: " << from << " To: " << to << " Probability: " << value << std::endl;
-
-
 	}
 }
 
@@ -133,7 +142,7 @@ void MarkovMain::createNewSequence(const unsigned short permutation_index)
 			next_value = getStartValue();
 			continue;
 		}
-		next_value = selectNextValue(probability_list);
+		next_value = selectNextValue(probability_list, select_at_random);
 	}
 	std::cout << std::endl;
 
@@ -144,16 +153,30 @@ void MarkovMain::createNewSequence(const unsigned short permutation_index)
 }
 
 
-const float MarkovMain::selectNextValue(const std::vector<std::pair<float, float>> probability_list)
+const float MarkovMain::selectNextValue(const std::vector<std::pair<float, float>> probability_list, const bool select_at_random)
 {
 	float next_value = -1.f;
 	while(next_value < 0)
 	{
 		for(auto value : probability_list)
 		{
-			if(chanceSelected(value.second))
+			if (!select_at_random)
 			{
-				next_value = value.first;
+				// Use the probability
+				if (chanceSelected(value.second))
+				{
+					next_value = value.first;
+					break;
+				}
+			}
+			else
+			{
+				// Use a 50% chance (flip a coin).
+				if (chanceSelected(0.5f))
+				{
+					next_value = value.first;
+					break;
+				}
 			}
 		}
 	}
